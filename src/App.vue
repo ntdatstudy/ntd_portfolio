@@ -1,32 +1,38 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <master-layout />
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import MasterLayout from "@/layouts/MasterLayout";
 
-#nav {
-  padding: 30px;
+export default {
+  components: {
+    MasterLayout
+  },
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+  mounted() {
+    document.title = "N.T.D Portfolio";
+    this.fixHeaderWhenScrollDown();
+  },
 
-    &.router-link-exact-active {
-      color: #42b983;
+  methods: {
+    fixHeaderWhenScrollDown() {
+      const headerEle = document.getElementById("header-navbar");
+
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 100) {
+          headerEle.classList.add("sticky");
+        } else {
+          headerEle.classList.remove("sticky");
+        }
+      });
     }
   }
-}
+};
+</script>
+
+<style lang="scss">
+@import "./styles/app.scss";
 </style>
